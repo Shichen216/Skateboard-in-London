@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Tomorrow:500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Maven+Pro&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
+
+    <style>
+
+      body, html {height: 100%}
+      .bgimg {
+        background-image: url('bg.jpg');
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 450px;  /* The height is 400 pixels */
+        width: 65%;  /* The width is the width of the web page */
+        background-color: grey;
+
+       }
+
+.intro{
+  color: #757575;
+  padding: 0 5px 5px 5px;
+  margin: 0;
+}
+
+  #map-canvas {
+	margin: 0;
+	padding: 0;
+	height: 400px;
+	max-width: none;
+}
+#map-canvas img {
+	max-width: none !important;
+}
+.gm-style-iw {
+	width: 350px !important;
+	top: 15px !important;
+	left: 0px !important;
+	background-color: #fff;
+	box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+	border: 1px solid rgba(72, 181, 233, 0.6);
+	border-radius: 2px 2px 10px 10px;
+  margin: 5px;
+}
+#iw-container {
+	margin-bottom: 10px;
+}
+#iw-container .iw-title {
+	font-family: 'Tomorrow', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	padding: 3px 3px 3px 10px;
+	background-color: #84B1ED;
+	color: white;
+	margin: 0;
+	border-radius: 2px 2px 0 0;
+  max-height: 60px;
+}
+
+#iw-container2 .iw-title {
+	font-family: 'Tomorrow', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	padding: 3px 3px 3px 10px;
+	background-color: #EE7785;
+	color: white;
+	margin: 0;
+	border-radius: 2px 2px 0 0;
+  max-height: 60px;
+}
+
+
+#iw-container .iw-content {
+	font-size: 13px;
+	line-height: 18px;
+	font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
+	padding: 0 0 5px 0;
+	max-height: 800px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.iw-content img {
+	float: top;
+	margin-left: 0;
+  margin-top:0;
+  max-width: 100%;
+  height: auto;
+}
+#borough{
+  font-size: 11px;
+  float: right;
+  margin-top: 0px;
+}
+
+
+.iw-subTitle {
+  color: #84B1ED;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 5px 5px 5px 5px;
+  margin: 5px 0 0 0;
+}
+.iw-subTitle2 {
+  color: #EE7785;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 5px 5px 5px 5px;
+  margin: 5px 0 0 0;
+}
+.iw-bottom-gradient {
+	position: absolute;
+	width: 326px;
+	height: 25px;
+	bottom: 10px;
+	right: 18px;
+	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+#map-container{
+  height: 450px;
+  width: 1000px;
+  background-color: #84B1ED;
+  margin: auto;
+}
+
+#heading{
+  text-align: left;
+  color: white;
+  font-family: 'Special Elite', cursive;
+  font-size: 26px;
+  margin-top: 8px;
+}
+#content{
+  height: 450px;
+  width: 350px;
+  padding: 25px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white" style="padding-top: 200px">
+      <!-- <div class="w3-display-topleft w3-padding-large w3-xlarge" style="margin-top:200px">
+        Popular Skateparks in London
+      </div> -->
+      <div id="map-container">
+        <div style="float:right" id="content">
+        <p id="heading">Skateboard in London</p>
+        <p style="margin-top: 30px; text-align:justify;font-family: 'Maven Pro', sans-serif; font-size: 13px">London has had a storied history in skateboarding culture. It’s been decades since skateboarding has entered the mainstream, but with London’s skateparks being saved and the rapid growth of brands like Supreme and Palace, it’s suddenly cooler than ever.</p>
+        <p style="text-align:justify;font-family: 'Maven Pro', sans-serif; font-size: 13px">This map shows 6 popular skateparks and 4 top rated skate shops in London. Click the helmet marks to browse park details, photos, locations and further information, while the skateboard buttons mark the 4 popular skate shops.</p>
+        <p style="text-align: justify;font-family: 'Maven Pro', sans-serif; font-size: 13px">Drag Pegman onto the skatepark positions to open Street View. Click anywhere in the map to close the infowindow.</p>
+        <p style="margin-top:20px; margin-bottom: 5px; font-family: 'Maven Pro', sans-serif; font-size: 13px">Data Resources:</p>
+        <a href="https://www.slamcity.com/community/skateparks/" style="font-family: 'Maven Pro', sans-serif;font-size: 13px"><i>www.slamcity.com/community/skateparks/</i></a>
+        <a href="https://data.london.gov.uk/dataset/cultural-infrastructure-map" style="font-family: 'Maven Pro', sans-serif;font-size: 13px"><i>data.london.gov.uk/cultural-infrastructure-map</i><a>
+        </div>
+
+        <div id="map" style="float:left"></div>
+        <div class="clear"></div>
+
+        </div>
+      <!-- <div class="w3-display-middle">
+        <h1 class="w3-jumbo w3-animate-top">COMING SOON</h1>
+        <hr class="w3-border-grey" style="margin:auto;width:40%">
+        <p class="w3-large w3-center">35 days left</p>
+      </div> -->
+      <div class="w3-display-bottomleft w3-padding-large">
+        <p style="font-family: 'Maven Pro', sans-serif; font-size: 13px">Photo by Lucie Delavay on Unsplash</p>
+      </div>
+    </div>
+    <!--The div element for the map -->
+
+
+
+    <script>
+// Initialize and add the map
+function initMap() {
+  // The location of city of london
+  var col = {lat: 51.5090, lng: -0.113711};
+  // The map, centered at
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 12, center: col,
+        styles: [
+                    {elementType: 'geometry', stylers: [{color: '#ECE4D6'}]},
+                    {elementType: 'labels.text.stroke', stylers: [{color: '#ECE4D6'}]},
+                    {elementType: 'labels.text.fill', stylers: [{color: '#67768B'}]},
+                    {
+                      featureType: 'administrative.locality',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#454D5D'}]
+                    },
+                    {
+                      featureType: 'poi',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#67768B'}]
+                    },
+                    {
+                      featureType: 'poi.park',
+                      elementType: 'geometry',
+                      stylers: [{color: '#B2B2B1'}]
+                    },
+                    {
+                      featureType: 'poi.park',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#67768B'}]
+                    },
+                    {
+                      featureType: 'road',
+                      elementType: 'geometry',
+                      stylers: [{color: '#B2B2B1'}]
+                    },
+                    {
+                      featureType: 'road',
+                      elementType: 'geometry.stroke',
+                      stylers: [{color: '#67D5B5'}]
+                    },
+                    {
+                      featureType: 'road',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#67768B'}]
+                    },
+                    {
+                      featureType: 'road.highway',
+                      elementType: 'geometry',
+                      stylers: [{color: '#FAF8F3'}]
+                    },
+                    {
+                      featureType: 'road.highway',
+                      elementType: 'geometry.stroke',
+                      stylers: [{color: '#FAF8F3'}]
+                    },
+                    {
+                      featureType: 'road.highway',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#f3d19c'}]
+                    },
+                    {
+                      featureType: 'transit',
+                      elementType: 'geometry',
+                      stylers: [{color: '#ffffff'}]
+                    },
+                    {
+                      featureType: 'transit.station',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#67768B'}]
+                    },
+                    {
+                      featureType: 'water',
+                      elementType: 'geometry',
+                      stylers: [{color: '#F5EFE5'}]
+                    },
+                    {
+                      featureType: 'water',
+                      elementType: 'labels.text.fill',
+                      stylers: [{color: '#515c6d'}]
+                    },
+                    {
+                      featureType: 'water',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{color: '#17263c'}]
+                    }
+                  ]
+      });
+      var content_palace = '<div id="iw-container">' +
+                                            '<div class="iw-title"><h5 style="margin:8px 8px 8px 8px">Palace Skateboards</h5></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="palace.jpg" alt="Palace Skateboards" >' +
+                                                '<div class="iw-subTitle">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">City of Westminister</p>' +
+                                              '<div class="iw-subTitle">Address</div>' +
+                                              '<p class="intro" style="text-align:justify">26 Brewer St, Soho, London W1F 0SW</p>' +
+                                              '<div class="iw-subTitle">Website</div>' +
+                                              '<a class="intro" href="https://www.palaceskateboards.com/london-shop/"><i>www.palaceskateboards.com/london-shop/</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_slickwillies = '<div id="iw-container">' +
+                                            '<div class="iw-title"><h5 style="margin:8px 8px 8px 8px">Slick Willies Ltd</h5></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="slick.jpg" alt="Slick Willies Ltd" >' +
+                                                '<div class="iw-subTitle">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">Kensington and Chelsea</p>' +
+                                              '<div class="iw-subTitle">Address</div>' +
+                                              '<p class="intro" style="text-align:justify">12 Gloucester Rd, South Kensington, London SW7 4RB</p>' +
+                                              '<div class="iw-subTitle">Website</div>' +
+                                              '<a class="intro" href="https://www.slickwillies.co.uk/"><i>www.slickwillies.co.uk</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_slamcity = '<div id="iw-container">' +
+                                            '<div class="iw-title"><h5 style="margin:8px 8px 8px 8px">Slam City Skates East London</h5></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="slam.jpg" alt="Slam City Skates East London" >' +
+                                                '<div class="iw-subTitle">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">Tower Hamlets</p>' +
+                                              '<div class="iw-subTitle">Address</div>' +
+                                              '<p class="intro" style="text-align:justify">The Old Truman Brewery, 10 Dray Walk, Spitalfields, London E1 6QL</p>' +
+                                              '<div class="iw-subTitle">Website</div>' +
+                                              '<a class="intro" href="https://www.slamcity.com/pages/slam-city-skates-east-london"><i>www.slamcity.com/slam-city-skates-east-london</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_threeamigo = '<div id="iw-container">' +
+                                            '<div class="iw-title"><h5 style="margin:8px 8px 8px 8px">Three Amigos Skateboard Shop</h5></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="threeamigo.png" alt="Three Amigos Skateboard Shop" >' +
+                                                '<div class="iw-subTitle">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">Camden</p>' +
+                                              '<div class="iw-subTitle">Address</div>' +
+                                              '<p class="intro" style="text-align:justify">118 Camden Rd, London NW1 9EE</p>' +
+                                              '<div class="iw-subTitle">Website</div>' +
+                                              '<a class="intro" href="https://www.threeamigosskateboardshop.com/"><i>www.threeamigosskateboardshop.com</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_stockwell = '<div id="iw-container2">' +
+                                            '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">Stockwell</h4></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="stockwell.jpg" alt="Stockwell" >' +
+                                                '<div class="iw-subTitle2">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">Lambeth</p>' +
+                                              '<div class="iw-subTitle2">Intro</div>' +
+                                              '<p class="intro" style="text-align:justify">It used to have a red surface to it but after renovation a few years ago is now grey. Most of the park is a undulating quite organic flow of concrete, with dips, bumps and snake runs throughout. During the renovation a couple of sharp hips and ledges have been added along with coping along certain edges too. </p>' +
+                                              '<div class="iw-subTitle2">Website</div>' +
+                                              '<a class="intro" href="https://www.slamcity.com/community/skateparks/london/stockwell/"><i>www.slamcity.com/</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_mileend = '<div id="iw-container2">' +
+                                            '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">Mile End</h4></div>' +
+                                            '<div class="iw-content">' +
+                                              '<img src="mileend.jpg" alt="Mile-End" >' +
+                                                '<div class="iw-subTitle2">Borough</div>' +
+                                                '<p class="intro" style="text-align:justify">Tower Hamlets</p>' +
+                                              '<div class="iw-subTitle2">Intro</div>' +
+                                              '<p class="intro" style="text-align:justify">Mile End skatepark was unveiled by Gravity in June 2011, it is a heavily street oriented park and is the focal point of the East London skate scene. With some strong lines and some less obvious ones, this skatepark pushes skaters to be more creative and try something new. Within the fencing there is large, silky smooth concrete street section and a rapid bowl that leads into it. </p>' +
+                                              '<div class="iw-subTitle2">Website</div>' +
+                                              '<a class="intro" href="https://www.slamcity.com/community/skateparks/london/mile-end/"><i>www.slamcity.com/</i></a>'+
+                                            '</div>' +
+                                            '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_southbank = '<div id="iw-container2">' +
+                                      '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">Southbank</h4></div>' +
+                                      '<div class="iw-content">' +
+                                      '<img src="southbank.jpg" alt="Southbank" >' +
+                                      '<div class="iw-subTitle2">Borough</div>' +
+                                      '<p class="intro" style="text-align:justify">Lambeth</p>' +
+                                      '<div class="iw-subTitle2">Intro</div>' +
+                                      '<p class="intro" style="text-align:justify">The undercroft of the Southbank Centre has pretty much been the beating heart of London skateboarding for around 40+ years now. The area set aside for skateboarders comprises of a variety of ledges, banks and a set of stairs. There is also a railing to stop tourists from wandering a bit too close and getting in the way too. </p>' +
+                                    '<div class="iw-subTitle2">Website</div>' +
+                                  '<a class="intro" href="https://www.slamcity.com/community/skateparks/london/southbank/"><i>www.slamcity.com/</i></a>'+
+                                            '</div>' +
+                                          '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_baysixty6 = '<div id="iw-container2">' +
+                                      '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">Bay Sixty 6</h4></div>' +
+                                      '<div class="iw-content">' +
+                                      '<img src="baysixty6.jpg" alt="Bay-Sixty-6" >' +
+                                      '<div class="iw-subTitle2">Borough</div>' +
+                                      '<p class="intro" style="text-align:justify">Kensington and Chelsea</p>' +
+                                      '<div class="iw-subTitle2">Intro</div>' +
+                                      '<p class="intro" style="text-align:justify">Since the refurb in 2011 the work hasnt stopped with pieces being changed and added all the time, including a bank to marble bench, mini-ramp in roughly the same place as the pre-refurb ramp and changing the wall ride to incorporate a street spot style door and steps. There are also great facilities including, lockers, toilets, snack vending machines, seating area and also a skate shop. </p>' +
+                                    '<div class="iw-subTitle2">Website</div>' +
+                                  '<a class="intro" href="https://www.baysixty6.com/"><i>www.baysixty6.com/</i></a>'+
+                                            '</div>' +
+                                          '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+      var content_victoriapark = '<div id="iw-container2">' +
+                                      '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">Victoria Park</h4></div>' +
+                                      '<div class="iw-content">' +
+                                      '<img src="victoriapark.jpg" alt="Victoria park" >' +
+                                      '<div class="iw-subTitle2">Borough</div>' +
+                                      '<p class="intro" style="text-align:justify">Tower Hamlets</p>' +
+                                      '<div class="iw-subTitle2">Intro</div>' +
+                                      '<p class="intro" style="text-align:justify">This skatepark is quite quirky, the main feature being a huge bowl with some nice lines and a massive cradle for the more adventurous. Then at one end of the park is a small open end bowl section with pool coping and a few ledges and banks dotted around. </p>' +
+                                    '<div class="iw-subTitle2">Website</div>' +
+                                  '<a class="intro" href="https://www.slamcity.com/community/skateparks/london/victoria-park/"><i>www.slamcity.com/</i></a>'+
+                                            '</div>' +
+                                          '<div class="iw-bottom-gradient"></div>' +
+                                          '</div>';
+  var content_houseofvans = '<div id="iw-container2">' +
+                      '<div class="iw-title"><h4 style="margin:8px 8px 8px 8px">House of Vans</h4></div>' +
+                      '<div class="iw-content">' +
+                        '<img src="https://houseofvanslondon.com/media/12-First-Skate-Fry-Day.jpg" alt="House of Vans" >' +
+                          '<div class="iw-subTitle2">Borough</div>' +
+                          '<p class="intro" style="text-align:justify">Lambeth</p>' +
+                        '<div class="iw-subTitle2">Intro</div>' +
+                        '<p class="intro" style="text-align:justify">At the heart of the brand and at the heart of House of Vans is skateboarding. A home to the only ‘open-to-all’ indoor bowl in central London – our Californian style concrete pool will be the number one spot for a casual carve, rain or shine. </p>' +
+                        '<div class="iw-subTitle2">Website</div>' +
+                        '<a class="intro" href="https://www.houseofvanslondon.com/"><i>www.houseofvanslondon.com/</i></a>'+
+                      '</div>' +
+                      '<div class="iw-bottom-gradient"></div>' +
+                    '</div>';
+
+
+
+
+
+
+
+
+var markers =[
+{
+  coords:{lat: 51.500574, lng: -0.114145},
+  iconImage:'helmet.png',
+  content: content_houseofvans,
+},
+{
+  coords:{lat: 51.517602, lng: -0.031548},
+  iconImage:'helmet.png',
+  content: content_mileend,
+},
+{
+  coords:{lat: 51.506431, lng: -0.117265},
+  iconImage:'helmet.png',
+  content: content_southbank,
+},
+{
+  coords:{lat: 51.520172, lng: -0.205295},
+  iconImage:'helmet.png',
+  content: content_baysixty6,
+},
+{
+  coords:{lat: 51.538461, lng: -0.034242},
+  iconImage:'helmet.png',
+  content: content_victoriapark,
+},
+{
+  coords:{lat: 51.466181, lng: -0.116294},
+  iconImage:'helmet.png',
+  content: content_stockwell,
+},
+{
+  coords:{lat: 51.542201, lng: -0.137859},
+  iconImage:'skateboard.png',
+  content: content_threeamigo,
+},
+{
+  coords:{lat: 51.520901, lng: -0.072496},
+  iconImage:'skateboard.png',
+  content: content_slamcity,
+},
+{
+  coords:{lat: 51.499312, lng: -0.183890},
+  iconImage:'skateboard.png',
+  content: content_slickwillies,
+},
+{
+  coords:{lat: 51.512225, lng: -0.134521},
+  iconImage:'skateboard.png',
+  content: content_palace,
+},
+];
+
+for(var i = 0; i < markers.length; i++){
+  addMarker(markers[i]);
+
+}
+
+
+  function addMarker(props){
+    var marker = new google.maps.Marker({
+    position: props.coords,
+    map: map,
+    //icon: props.iconImage
+     });
+
+     if(props.iconImage){
+       marker.setIcon(props.iconImage);
+     }
+
+     if(props.content){
+       var infoWindow = new google.maps.InfoWindow({
+       content: props.content,
+       maxWidth: 600,
+
+     });
+
+var myLatlng = {lat: 51.5090, lng: -0.113711};
+
+    marker.addListener('click', function(){
+     infoWindow.open(map,marker);
+   });
+
+   google.maps.event.addListener(map, 'click', function() {
+              infoWindow.close();
+              map.setCenter(myLatlng);
+          });
+     }
+  }
+
+}
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbkJBOpxVyoHa0hriblVu8V-u8c1emeI&callback=initMap">
+    </script>
+  </body>
+</html>
